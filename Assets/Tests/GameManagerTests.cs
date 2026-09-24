@@ -19,8 +19,8 @@ public class GameManagerTests
     [TearDown]
     public void TearDown()
     {
-        // Clean up the GameObject after each test to avoid memory leaks in the scene
         Object.Destroy(gameManagerGameObject);
+        GameManager.ResetForTesting();
     }
 
     [Test]
@@ -41,9 +41,13 @@ public class GameManagerTests
     public IEnumerator DistanceScore_IncrementsOverTime()
     {
         gameManager.StartGame();
+
+        // Let Unity process one frame so Update() and Time.deltaTime kick in cleanly
+        yield return null;
+
         float initialScore = gameManager.DistanceScore;
 
-        // Wait for half a second to allow time-based score increments to process
+        // Now wait for half a second
         yield return new WaitForSeconds(0.5f);
 
         Assert.Greater(gameManager.DistanceScore, initialScore);
@@ -58,4 +62,6 @@ public class GameManagerTests
 
         Assert.AreEqual(GameManager.GameState.GameOver, gameManager.CurrentState);
     }
+
+
 }

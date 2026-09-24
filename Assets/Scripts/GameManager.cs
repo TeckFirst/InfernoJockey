@@ -53,4 +53,12 @@ public class GameManager : MonoBehaviour
     {
         KytheriumCollected += amount;
     }
+
+#if UNITY_EDITOR
+    // Allows unit tests to clear the singleton instance between test runs
+    public static void ResetForTesting()
+    {
+        Instance = null;
+    }
+#endif
 }
