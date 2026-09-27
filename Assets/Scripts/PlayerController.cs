@@ -3,8 +3,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Dependencies")]
-    [SerializeField] private InputHandler inputHandler;
-    [SerializeField] private GridManager gridManager;
+    // We can make this private since it auto-assigns, or keep it [HideInInspector]
+    private InputHandler inputHandler;
+    [SerializeField] private GridManager gridManager; // Keep this, as GridManager is likely on a separate object
 
     [Header("Movement Settings")]
     [Tooltip("Constant forward speed of the player.")]
@@ -14,6 +15,16 @@ public class PlayerController : MonoBehaviour
 
     private int currentLane = 5; // Default starting lane (center anchor)
     private int targetLane = 5;
+
+    private void Awake()
+    {
+        // Automatically grab the InputHandler attached to this same GameObject
+        inputHandler = GetComponent<InputHandler>();
+        if (inputHandler == null)
+        {
+            Debug.LogError("PlayerController requires an InputHandler component on the same GameObject!");
+        }
+    }
 
     private void OnEnable()
     {
