@@ -1,0 +1,29 @@
+Recommended Classes
+Eight pure C# types, then one scene adapter. No Drone class, no tag service, no economy types. Fuel, ammo, and lane are fields. Each test file is written first.
+
+1. LaneGrid — LaneGridTests
+Validity for lanes 1–9, row-major row and column, Chebyshev adjacency. Corner has 3 neighbors, edge has 5, center has 8. Wrap of lane + 7 from 9 back to 1. Nothing else calls a lane legal.
+
+2. PiPattern — PiPatternTests
+The 30 digits `3 1 4 1 5 9 2 6 5 3 5 8 9 7 9 3 2 3 8 4 6 2 6 4 3 3 8 3 2 7`. Index `i` uses digit `i mod 30` as the safe lane. Ore lane is that safe lane + 7, wrapped. Tests cover index 0, index 29, index 30, and all nine safe-to-ore pairs.
+
+3. TapResolver — TapResolverTests
+Occupied lane plus tapped lane plus ammo becomes Move, Fire, or Ignore. Adjacent tap moves. Occupied tap with ammo fires. Occupied tap with no ammo ignores and does not spend. Any other lane ignores. Visibility is not an input.
+
+4. ObstacleSet — ObstacleSetTests
+One set of nine lanes from a pattern index. Safe lane is open. Ore lane holds unmelted ore and does not close the safe lane. Other lanes may hold obstacles. Fuel and laser cores spawn only on the safe lane, on a fixed cadence. If a set would block all nine, the safety net clears the safe lane. That path is tested, not used by the normal builder.
+
+5. SpeedMeter — SpeedMeterTests
+Starts at the base speed. Exposure steps it up. It never steps down. It clamps at the machinery cap and stays there.
+
+6. RunCosts — RunCostsTests
+Immutable drone, fuel, and ammo costs. Round-trip only. No UI, no shop, no wallet.
+
+7. Run — RunTests
+Composes the six above. One occupied lane, fuel, ammo, speed, set index, tag count. A fire on an obstacle clears it and spends one ammo. A fire on ore melts it, spends one ammo, and exposes the drone once. The next beat tags if the drone is still in that lane. Unmelted ore is not tagged. Advancing into an obstacle crashes. Empty fuel ends the run. Either end destroys the drone. Zero ammo can still take the safe lane. The tests that close this class are tap-move, tap-fire, one obstacle set, one melt-and-tag, fuel end, ammo deny, and the speed cap.
+
+8. CameraWindow — CameraWindowTests
+Visible lanes are the occupied lane plus its Chebyshev neighbors. A corner cannot see the opposite side. The center sees more than a corner. Hidden lanes still resolve as taps. No minimap.
+
+9. RunSceneDriver
+Unity 6 adapter only, after the Run tests pass. It forwards a lane tap into Run and draws the current set tight to the drone. No domain test. The scene only has to show the loop Run already proved.

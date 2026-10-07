@@ -1,0 +1,96 @@
+## Inferno Jockey Game Design Document
+Locked context for the simplest playable version of Inferno Jockey. Guidance only, not a build order. Do not invent systems the core loop does not need. Do not violate the fairness rule.
+
+## Product
+Inferno Jockey is a mobile infinite runner in Unity 6. It is not a 3-lane runner. The playfield is a 3×3 grid of 9 lanes. The player pilots a drone through refinery machinery, shoots and tags raw Kytherium, and stays alive by dodging or clearing obstacles and collecting fuel and laser cores.
+
+Tagging is the in-run action. Hauling, contracts, and payout live in the menu and stay out of scope until a later request.
+
+## Fiction (context only)
+The player is an independent Inferno Jockey on the molten world of Krneal, tagging Kytherium for collection. Kytherium is a natural superconductor in solid, liquid, or gas form. Refinery machinery already harvests it from the lava. In the run, the player only pilots the drone through tight machinery.
+
+Raw Kytherium forces exposed technology into permanent overdrive. Speed only goes up. It never resets mid-run. A machinery cap stops the climb at a speed that is very hard but still playable.
+
+## Simplest version — in scope
+- One drone on a 3×3 lane grid.
+- One input: tap a lane to move or fire.
+- Forward auto-scroll. The player does not steer forward speed directly.
+- Obstacles that must be dodged or shot clear.
+- Raw Kytherium that must be shot to melt hardened lava, then tagged.
+- In-run fuel and ammo (replacement laser cores).
+- Permanent speed increase on Kytherium exposure, with a hard cap.
+- A run that ends on crash or empty fuel. The drone is destroyed at the end of every run.
+- Deterministic safe-lane and ore-lane placement from pi, defined below.
+- Tight camera so an outer lane cannot see the opposite side of the grid.
+
+## Out of scope until a later request
+Contracts, quests, refinery payout UI, haul simulation, drone shop, meta progression, story scenes, multiple drone types, and anything that does not serve the run loop above. Costs of the drone, fuel, and ammo should be representable as data. Do not build the economy UI unless asked.
+
+## Lane model
+Number the lanes row-major. This numbering is the project convention:
+
+```
+1  2  3
+4  5  6
+7  8  9
+```
+
+Adjacent means Chebyshev distance 1: horizontal, vertical, or diagonal. A corner has 3 neighbors, an edge has 5, the center has 8. Movement is discrete and lane-locked. No free flight.
+
+## Input
+There is no separate fire button. Tapping a lane is the only play input.
+
+- Tap an adjacent lane: move there.
+- Tap the lane the drone already occupies: fire down that lane.
+- Tap any other lane: do nothing.
+
+Firing spends one ammo. With no ammo, the tap on the occupied lane does not fire. The player can still move.
+
+## Camera
+The view is tight and follows the drone. If the drone is in an outer lane, lanes on the opposite side of the 3×3 are outside the view. The center lane can see more of the grid than a corner can. Do not reveal the full grid as a convenience. Hidden lanes still exist and still follow the fairness rule. A lane does not need to be visible to be a legal tap target if the input model can resolve it; do not invent a minimap.
+
+## Fairness invariant
+There is never a no-win obstacle set. Every obstacle set leaves at least one open lane. If a generated set would block all 9 lanes, refinery equipment auto-clears it. That clear is a safety net, not the normal path. A skilled player must always have a legal dodge, including at zero ammo. Failure comes from a missed move, a bad route, or running out of fuel after failing to collect it. Do not spawn unavoidable walls, impossible gaps, or a fuel drought that ends the run with no prior player mistake.
+
+## Shooting, ammo, and fuel
+- Fuel is required to keep flying. Empty fuel ends the run.
+- Empty ammo does not end the run.
+- Ammo is spent only by a fire tap on the occupied lane. Without ammo, the player cannot clear obstacles and cannot prepare ore. Survival is still possible by taking the open lane.
+- A shot clears an obstacle in the occupied lane.
+- A shot on Kytherium in the occupied lane melts the hardened lava off it. Only melted ore can be tagged. Tagging is the next beat after the melt, not a second button. Unmelted ore is not collected.
+- Fuel and ammo spawn on a survivable path often enough that a skilled player can keep flying and keep shooting. Do not place required pickups only on blocked lanes.
+
+## Deterministic pattern
+Safe lanes use the first 30 digits of pi, including the leading 3:
+
+`3 1 4 1 5 9 2 6 5 3 5 8 9 7 9 3 2 3 8 4 6 2 6 4 3 3 8 3 2 7`
+
+Index i (starting at 0) uses digit i mod 30. That digit is the guaranteed open lane for that obstacle set. None of these digits is 0, so every value is a valid lane 1–9.
+
+Ore for that same set spawns at safe lane + 7, wrapping from 9 back to 1:
+
+| Safe lane | Ore lane |
+|---|---|
+| 1 | 8 |
+| 2 | 9 |
+| 3 | 1 |
+| 4 | 2 |
+| 5 | 3 |
+| 6 | 4 |
+| 7 | 5 |
+| 8 | 6 |
+| 9 | 7 |
+
+Other lanes in the set may contain obstacles. They must not block the safe lane. The ore lane may still hold ore that must be melted before it can be tagged. The safe lane stays open even when the ore lane is occupied.
+
+## Run economy
+Each run consumes one drone. The drone is destroyed when the run ends, by crash or empty fuel. Drone, fuel, and ammo all have costs the player is meant to manage. Persist those costs as data. Do not build the economy UI unless asked.
+
+Speed increases permanently when the drone is exposed to raw Kytherium, up to the machinery cap. The cap is a designer constant, fast enough to feel severe, slow enough to remain playable.
+
+## Engineering rules
+- Unity 6, mobile.
+- Test-first. Write the failing test, then the minimum code that passes.
+- Prefer pure C# for lane rules, pi sequencing, wrapping, adjacency, tap resolution (move vs fire vs ignore), melt-then-tag, and the no-dead-end check so those can be tested without a scene.
+- Keep the first scene small enough to prove tap-move, tap-fire, one obstacle set, one melt-and-tag, fuel, ammo, and the speed cap.
+- Do not add a feature that the current tests do not require.
