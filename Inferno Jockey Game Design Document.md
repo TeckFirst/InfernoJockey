@@ -44,7 +44,7 @@ Speed only increases.
 
 It never decreases during a run.
 
-A refinery machinery cap prevents speed from increasing beyond a level that would become unplayable.
+The physical limits of the machinery prevents speed from increasing beyond a level that would become unplayable.
 
 ---
 
@@ -72,7 +72,6 @@ A refinery machinery cap prevents speed from increasing beyond a level that woul
 # Out of Scope Until Later Requests
 
 - Contracts
-- Quests
 - Refinery payout screens
 - Hauling simulation
 - Drone shop
@@ -290,13 +289,13 @@ A shot can:
 - Clear an obstacle.
 - Melt hardened lava around Kytherium.
 
-Raw ore cannot be tagged.
+If the player drone impacts Raw ore it will crash.
 
 Ore must first be melted.
 
 Tagging occurs automatically after successful preparation.
 
-Tagging is not a separate input.
+To tag the drone simply flies through the melted ore.
 
 Ore lifecycle:
 
@@ -304,7 +303,8 @@ Ore lifecycle:
 2. Ore is shot.
 3. Hardened lava melts.
 4. Ore becomes taggable.
-5. Ore is tagged.
+5. Drone flies through ore.
+6. Ore is tagged.
 
 ---
 
@@ -368,6 +368,7 @@ Wrap past 9
 Rules:
 
 - Safe lane always remains traversable.
+- Drops will always spawn in the safe lane 
 - Ore lane may contain ore.
 - Ore lane may be dangerous.
 - Ore lane may require shots.
