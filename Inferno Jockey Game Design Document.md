@@ -44,7 +44,7 @@ Speed only increases.
 
 It never decreases during a run.
 
-The physical limits of the machinery prevents speed from increasing beyond a level that would become unplayable.
+The physical limits of the machinery prevent speed from increasing beyond a level that would become unplayable.
 
 ---
 
@@ -133,9 +133,70 @@ The logical grid drives:
 
 The logical grid exists independently of scene objects.
 
+## Lane Areas
+
+Each lane occupies a visible square area in the 3×3 lane grid.
+
+Each lane consists of:
+
+- A lane identifier (1-9)
+- A selectable lane area
+- A lane center position
+
+The lane area receives player input.
+
+The lane center defines the drone's occupied position when the drone is in that lane.
+
+The player may tap anywhere inside a lane's area to select that lane.
+
+The exact touch or click position inside a lane is ignored once the lane has been identified.
+
+The drone never moves to the touched point.
+
+The drone always moves to the center position of the selected lane.
+
+## Lane Occupancy
+
+The drone occupies exactly one lane at all times.
+
+The drone's position is aligned to the center position of the occupied lane.
+
+When changing lanes, the destination is always the center position of the destination lane.
+
+The drone never occupies multiple lanes simultaneously.
+
+## Lane Alignment
+
+All lane-based gameplay elements align to the logical lane system.
+
+This includes:
+
+- The drone
+- Obstacles
+- Ore
+- Fuel pickups
+- Ammo pickups
+
+Gameplay entities that occupy a lane are considered to occupy that lane's center position for gameplay purposes.
+
+## Lane Selection
+
+The entire visible area of a lane acts as a selection button.
+
+Examples:
+
+- Tap anywhere within Lane 2 → Select Lane 2
+- Tap anywhere within Lane 5 → Select Lane 5
+
+Input is resolved at the lane level rather than the exact touch location.
+
+Gameplay behavior must remain identical regardless of the underlying implementation.
+
+Lane identification may be performed through colliders, raycasts, touch detection, mouse detection, or other implementation details.
+
 ## Lane Markers
 
-Lane markers are visible GameObjects attached to the camera hierarchy.
+The current implementation contains lane marker GameObjects attached to the camera hierarchy.
 
 Each lane marker corresponds directly to one logical lane.
 
@@ -145,20 +206,16 @@ Each lane marker corresponds directly to one logical lane.
 7  8  9
 ```
 
-Lane markers are not physical world locations.
+Lane markers provide:
 
-Lane markers are navigation references used for:
-
+- Lane identification
+- Input targeting
 - Visual feedback
-- Touch input
-- Mouse input
-- Debugging
+- Debugging support
 
 The lane marker grid remains fixed relative to the camera.
 
-The grid functions as the drone's navigation interface.
-
-The current implementation consists of nine lane marker GameObjects (`Lane1` through `Lane9`) arranged in a 3×3 pattern and parented to the camera hierarchy.
+The lane grid functions as the drone's navigation interface.
 
 ---
 
@@ -166,17 +223,17 @@ The current implementation consists of nine lane marker GameObjects (`Lane1` thr
 
 There is no separate fire button.
 
-Tapping or clicking a lane marker is the only player input.
+Selecting a lane is the only player input.
 
 Rules:
 
-- Tap an adjacent lane → Move there.
-- Tap the current lane → Fire.
-- Tap a non-adjacent lane → Ignore.
+- Select an adjacent lane → Move the drone to the center position of that lane.
+- Select the current lane → Fire.
+- Select a non-adjacent lane → Ignore.
 
 Movement is lane-locked.
 
-The lane marker selected by the player determines the intended destination lane.
+The selected lane determines the intended destination.
 
 The player never drags, steers, or freely pilots the drone.
 
@@ -206,22 +263,22 @@ Ammo only affects combat and ore processing.
 
 The game uses a first-person drone camera.
 
-The camera-anchored lane grid remains fixed in the player's view.
+The lane navigation grid remains fixed relative to the camera.
 
-The lane markers never move relative to the camera.
+The lane grid functions as the drone's targeting and navigation system.
 
 When changing lanes:
 
 - The logical lane changes.
-- The drone's position changes.
-- The camera moves with the drone.
-- The lane marker grid remains fixed relative to the camera.
+- The drone moves to the center position of the selected lane.
+- The camera follows the drone.
+- The lane navigation grid remains fixed relative to the camera.
 - World geometry shifts relative to the camera.
 - Obstacles, pickups, ore, and refinery structures move relative to the camera.
 
-The selected lane marker remains visually stationary before and after movement.
+The selected lane remains visually stationary before and after movement.
 
-The world shifts beneath the navigation grid.
+The world appears to shift beneath the navigation grid.
 
 This creates the feeling of piloting a drone using an onboard navigation and targeting system rather than moving a cursor around a screen.
 
@@ -354,7 +411,7 @@ Wrap past 9
 ```
 
 | Safe Lane | Ore Lane |
-|-----------|----------|
+|-----------|-----------|
 | 1 | 8 |
 | 2 | 9 |
 | 3 | 1 |
@@ -368,7 +425,7 @@ Wrap past 9
 Rules:
 
 - Safe lane always remains traversable.
-- Drops will always spawn in the safe lane 
+- Drops will always spawn in the safe lane.
 - Ore lane may contain ore.
 - Ore lane may be dangerous.
 - Ore lane may require shots.
@@ -469,7 +526,7 @@ Pure C# systems should include:
 
 The first playable scene should demonstrate:
 
-- Lane marker selection
+- Lane selection
 - Tap-to-move
 - Tap-to-fire
 - Camera-follow movement
