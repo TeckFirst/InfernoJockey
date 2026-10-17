@@ -344,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8b9595493f33845b70169e23e001f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laneMarkers:
+  laneCenters:
   - {fileID: 271823332}
   - {fileID: 1749736263}
   - {fileID: 1453399047}

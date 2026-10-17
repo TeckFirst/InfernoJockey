@@ -3,16 +3,22 @@ using UnityEngine;
 public class CameraLaneMover : MonoBehaviour
 {
     [SerializeField]
-    private Transform[] laneMarkers = new Transform[9];
+    private Transform[] laneCenters = new Transform[9];
 
     [SerializeField]
     private int startingLane = 5;
 
     public int CurrentLane { get; private set; }
 
-    private void Awake()
+    private void Start()
     {
         CurrentLane = startingLane;
+
+        if (IsValidLane(CurrentLane))
+        {
+            transform.position =
+                laneCenters[CurrentLane - 1].position;
+        }
     }
 
     public bool MoveToLane(int targetLane)
@@ -27,15 +33,23 @@ public class CameraLaneMover : MonoBehaviour
             return false;
         }
 
-        transform.position = laneMarkers[targetLane - 1].position;
+        transform.position =
+            laneCenters[targetLane - 1].position;
+
         CurrentLane = targetLane;
 
         return true;
     }
 
+    public bool IsCurrentLane(int lane)
+    {
+        return lane == CurrentLane;
+    }
+
     public static bool IsAdjacent(int fromLane, int toLane)
     {
-        if (!IsValidLane(fromLane) || !IsValidLane(toLane))
+        if (!IsValidLane(fromLane) ||
+            !IsValidLane(toLane))
         {
             return false;
         }
@@ -45,8 +59,8 @@ public class CameraLaneMover : MonoBehaviour
             return false;
         }
 
-        Vector2Int from = LaneToGridPosition(fromLane);
-        Vector2Int to = LaneToGridPosition(toLane);
+        Vector2Int from = LaneToGrid(fromLane);
+        Vector2Int to = LaneToGrid(toLane);
 
         int deltaX = Mathf.Abs(from.x - to.x);
         int deltaY = Mathf.Abs(from.y - to.y);
@@ -59,13 +73,12 @@ public class CameraLaneMover : MonoBehaviour
         return lane >= 1 && lane <= 9;
     }
 
-    private static Vector2Int LaneToGridPosition(int lane)
+    private static Vector2Int LaneToGrid(int lane)
     {
-        int zeroBased = lane - 1;
+        int index = lane - 1;
 
-        int x = zeroBased % 3;
-        int y = zeroBased / 3;
-
-        return new Vector2Int(x, y);
+        return new Vector2Int(
+            index % 3,
+            index / 3);
     }
 }

@@ -3,50 +3,65 @@ using NUnit.Framework;
 public class CameraLaneMoverTests
 {
     [Test]
-    public void CenterLane_HasAdjacentTopLane()
+    public void CenterLane_IsAdjacentToTop()
     {
-        Assert.IsTrue(CameraLaneMover.IsAdjacent(5, 2));
+        Assert.IsTrue(
+            CameraLaneMover.IsAdjacent(5, 2));
     }
 
     [Test]
-    public void CenterLane_HasAdjacentDiagonalLane()
+    public void CenterLane_IsAdjacentToBottom()
     {
-        Assert.IsTrue(CameraLaneMover.IsAdjacent(5, 1));
+        Assert.IsTrue(
+            CameraLaneMover.IsAdjacent(5, 8));
     }
 
     [Test]
-    public void CenterLane_HasAdjacentRightLane()
+    public void CenterLane_IsAdjacentToLeft()
     {
-        Assert.IsTrue(CameraLaneMover.IsAdjacent(5, 6));
+        Assert.IsTrue(
+            CameraLaneMover.IsAdjacent(5, 4));
+    }
+
+    [Test]
+    public void CenterLane_IsAdjacentToRight()
+    {
+        Assert.IsTrue(
+            CameraLaneMover.IsAdjacent(5, 6));
+    }
+
+    [Test]
+    public void CenterLane_IsAdjacentToDiagonal()
+    {
+        Assert.IsTrue(
+            CameraLaneMover.IsAdjacent(5, 1));
     }
 
     [Test]
     public void OppositeCorners_AreNotAdjacent()
     {
-        Assert.IsFalse(CameraLaneMover.IsAdjacent(1, 9));
+        Assert.IsFalse(
+            CameraLaneMover.IsAdjacent(1, 9));
     }
 
     [Test]
-    public void EdgeToFarEdge_IsNotAdjacent()
+    public void SameLane_IsNotAdjacent()
     {
-        Assert.IsFalse(CameraLaneMover.IsAdjacent(2, 8));
+        Assert.IsFalse(
+            CameraLaneMover.IsAdjacent(5, 5));
     }
 
     [Test]
-    public void SameLane_IsNotMovementAdjacent()
+    public void InvalidLane_IsRejected()
     {
-        Assert.IsFalse(CameraLaneMover.IsAdjacent(5, 5));
+        Assert.IsFalse(
+            CameraLaneMover.IsAdjacent(0, 5));
     }
 
     [Test]
-    public void InvalidLowLane_IsRejected()
+    public void InvalidDestination_IsRejected()
     {
-        Assert.IsFalse(CameraLaneMover.IsAdjacent(0, 1));
-    }
-
-    [Test]
-    public void InvalidHighLane_IsRejected()
-    {
-        Assert.IsFalse(CameraLaneMover.IsAdjacent(1, 10));
+        Assert.IsFalse(
+            CameraLaneMover.IsAdjacent(5, 10));
     }
 }
