@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 70412800}
   - component: {fileID: 70412799}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Lane 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 106002942}
-  - component: {fileID: 106002941}
+  - component: {fileID: 106002943}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -256,18 +256,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &106002941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106002940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bef604f26c3a7c4d9f392a24fd6b45d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &106002942
 Transform:
   m_ObjectHideFlags: 0
@@ -283,6 +271,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &106002943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106002940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b8d8f2ea8ab26a4ab2daebd9889e05c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLane: 5
+  targetCameraTransform: {fileID: 330585546}
+  cameraMoveSpeed: 10
+  lanes:
+  - laneName: Lane 0
+    cameraPosition: {fileID: 973599668}
+  - laneName: Lane 1
+    cameraPosition: {fileID: 202400187}
+  - laneName: Lane 2
+    cameraPosition: {fileID: 1151198816}
+  - laneName: Lane 3
+    cameraPosition: {fileID: 1629760867}
+  - laneName: Lane 4
+    cameraPosition: {fileID: 829483562}
+  - laneName: Lane 5
+    cameraPosition: {fileID: 1225796285}
+  - laneName: Lane 6
+    cameraPosition: {fileID: 398871363}
+  - laneName: Lane 7
+    cameraPosition: {fileID: 1043191089}
+  - laneName: Lane 8
+    cameraPosition: {fileID: 1133994471}
 --- !u!1 &129505671
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +318,7 @@ GameObject:
   - component: {fileID: 129505674}
   - component: {fileID: 129505673}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Lane 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -416,7 +438,7 @@ GameObject:
   - component: {fileID: 169172602}
   - component: {fileID: 169172601}
   m_Layer: 5
-  m_Name: Button (7)
+  m_Name: Lane 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -567,7 +589,7 @@ GameObject:
   - component: {fileID: 289560951}
   - component: {fileID: 289560950}
   m_Layer: 5
-  m_Name: Button (5)
+  m_Name: Lane 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -687,7 +709,7 @@ GameObject:
   - component: {fileID: 323577887}
   - component: {fileID: 323577886}
   m_Layer: 5
-  m_Name: Button (8)
+  m_Name: Lane 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -881,7 +903,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99998087, z: -0, w: -0.0062003396}
-  m_LocalPosition: {x: -3.07, y: -2.53, z: 6.69}
+  m_LocalPosition: {x: -4.13, y: -3.02, z: 6.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1194,50 +1216,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1033464940
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1033464942}
-  - component: {fileID: 1033464941}
-  m_Layer: 0
-  m_Name: GridManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1033464941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1033464940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68c9086f397a0774da3e1e0eb98b6099, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1033464942
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1033464940}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1043191088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,7 +1353,7 @@ GameObject:
   - component: {fileID: 1226037963}
   - component: {fileID: 1226037962}
   m_Layer: 5
-  m_Name: Button (4)
+  m_Name: Lane 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1605,7 +1583,7 @@ GameObject:
   - component: {fileID: 1750768847}
   - component: {fileID: 1750768846}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Lane 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1725,7 +1703,7 @@ GameObject:
   - component: {fileID: 1775620990}
   - component: {fileID: 1775620989}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: Lane 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1845,7 +1823,7 @@ GameObject:
   - component: {fileID: 1889784837}
   - component: {fileID: 1889784836}
   m_Layer: 5
-  m_Name: Button (6)
+  m_Name: Lane 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2045,7 +2023,7 @@ Canvas:
   m_GameObject: {fileID: 2010463027}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 330585545}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2094,10 +2072,9 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 106002942}
-  - {fileID: 1033464942}
+  - {fileID: 330585546}
   - {fileID: 2010463032}
   - {fileID: 1329036637}
-  - {fileID: 330585546}
   - {fileID: 973599668}
   - {fileID: 202400187}
   - {fileID: 1151198816}
