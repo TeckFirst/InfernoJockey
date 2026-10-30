@@ -9,6 +9,28 @@ public class LaneSelector : MonoBehaviour
     // Optional: the current safe lane (1–9). You can drive this later from pi digits.
     public int safeLane = 3;
 
+    
+    public void SelectLane(int laneNumber)   // 1–9
+    {
+        if (laneNumber < 1 || laneNumber > 9) return;
+
+        int index = laneNumber - 1;
+        int col = index % 3;   // 0, 1, 2
+        int row = index / 3;   // 0, 1, 2
+
+        // These should match your Grid Layout Group cell size × canvas scale
+        float cellWorldWidth = 50f * transform.lossyScale.x;
+        float cellWorldHeight = 100f * transform.lossyScale.y;
+
+        // Move the grid so the chosen lane's center lands on the camera's forward axis
+        float x = (1 - col) * cellWorldWidth;
+        float y = (1 - row) * cellWorldHeight;
+
+        transform.localPosition = new Vector3(x, y, transform.localPosition.z);
+    }
+    
+
+    /*
     public void SelectLane(int laneNumber)   // expects 1–9
     {
         if (laneNumber < 1 || laneNumber > 9)
@@ -27,6 +49,7 @@ public class LaneSelector : MonoBehaviour
 
         transform.localPosition = new Vector3(x, y, transform.localPosition.z);
     }
+    */
 
     // Convenience method if you later want a “go to safe lane” button or automatic call
     public void GoToSafeLane()
