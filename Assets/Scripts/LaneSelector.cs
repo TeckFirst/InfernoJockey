@@ -2,14 +2,12 @@
 
 public class LaneSelector : MonoBehaviour
 {
-    [Tooltip("How far the grid shifts per lane (in local units). Tune these so the selected lane sits where you want it.")]
-    public float laneOffsetX = 1.05f;   // roughly cellWidth * scale
-    public float laneOffsetY = 2.1f;    // roughly cellHeight * scale
-
     // Optional: the current safe lane (1–9). You can drive this later from pi digits.
     public int safeLane = 3;
 
-    
+    // Tracks the lane the player is currently in (1–9)
+    public int currentLane { get; private set; } = 7;   // game currently starts here
+
     public void SelectLane(int laneNumber)   // 1–9
     {
         if (laneNumber < 1 || laneNumber > 9) return;
@@ -18,40 +16,21 @@ public class LaneSelector : MonoBehaviour
         int col = index % 3;   // 0, 1, 2
         int row = index / 3;   // 0, 1, 2
 
-        // These should match your Grid Layout Group cell size × canvas scale
         float cellWorldWidth = 50f * transform.lossyScale.x;
         float cellWorldHeight = 100f * transform.lossyScale.y;
 
-        // Move the grid so the chosen lane's center lands on the camera's forward axis
         float x = (1 - col) * cellWorldWidth;
         float y = (1 - row) * cellWorldHeight;
 
-        transform.localPosition = new Vector3(x, y, transform.localPosition.z);
+        transform.localPosition = new Vector3(x, -y, transform.localPosition.z);
+
+        currentLane = laneNumber;
+
+#if UNITY_EDITOR
+        Debug.Log($"Current lane: {currentLane}");
+#endif
     }
-    
 
-    /*
-    public void SelectLane(int laneNumber)   // expects 1–9
-    {
-        if (laneNumber < 1 || laneNumber > 9)
-        {
-            Debug.LogWarning("Lane must be 1–9");
-            return;
-        }
-
-        int index = laneNumber - 1;          // convert to 0–8 for math
-        int col = index % 3;                 // 0 left, 1 center, 2 right
-        int row = index / 3;                 // 0 top, 1 middle, 2 bottom
-
-        // Center the chosen lane (lane 5 → col 1, row 1 → offset 0,0)
-        float x = (1 - col) * laneOffsetX;
-        float y = (1 - row) * laneOffsetY;
-
-        transform.localPosition = new Vector3(x, y, transform.localPosition.z);
-    }
-    */
-
-    // Convenience method if you later want a “go to safe lane” button or automatic call
     public void GoToSafeLane()
     {
         SelectLane(safeLane);

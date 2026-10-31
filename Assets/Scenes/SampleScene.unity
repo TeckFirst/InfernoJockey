@@ -202,8 +202,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2010463033}
-        m_TargetAssemblyTypeName: LaneSelector, GameScripts
-        m_MethodName: SelectLane
+        m_TargetAssemblyTypeName: PlayerInput, GameScripts
+        m_MethodName: OnLaneButtonPressed
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -378,8 +378,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2010463033}
-        m_TargetAssemblyTypeName: LaneSelector, GameScripts
-        m_MethodName: SelectLane
+        m_TargetAssemblyTypeName: PlayerInput, GameScripts
+        m_MethodName: OnLaneButtonPressed
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -510,8 +510,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2010463033}
-        m_TargetAssemblyTypeName: LaneSelector, GameScripts
-        m_MethodName: SelectLane
+        m_TargetAssemblyTypeName: PlayerInput, GameScripts
+        m_MethodName: OnLaneButtonPressed
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -642,8 +642,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2010463033}
-        m_TargetAssemblyTypeName: LaneSelector, GameScripts
-        m_MethodName: SelectLane
+        m_TargetAssemblyTypeName: PlayerInput, GameScripts
+        m_MethodName: OnLaneButtonPressed
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -774,8 +774,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2010463033}
-        m_TargetAssemblyTypeName: LaneSelector, GameScripts
-        m_MethodName: SelectLane
+        m_TargetAssemblyTypeName: PlayerInput, GameScripts
+        m_MethodName: OnLaneButtonPressed
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1214,8 +1214,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2010463033}
-        m_TargetAssemblyTypeName: LaneSelector, GameScripts
-        m_MethodName: SelectLane
+        m_TargetAssemblyTypeName: PlayerInput, GameScripts
+        m_MethodName: OnLaneButtonPressed
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1425,8 +1425,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2010463033}
-        m_TargetAssemblyTypeName: LaneSelector, GameScripts
-        m_MethodName: SelectLane
+        m_TargetAssemblyTypeName: PlayerInput, GameScripts
+        m_MethodName: OnLaneButtonPressed
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1557,8 +1557,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2010463033}
-        m_TargetAssemblyTypeName: LaneSelector, GameScripts
-        m_MethodName: SelectLane
+        m_TargetAssemblyTypeName: PlayerInput, GameScripts
+        m_MethodName: OnLaneButtonPressed
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1689,8 +1689,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2010463033}
-        m_TargetAssemblyTypeName: LaneSelector, GameScripts
-        m_MethodName: SelectLane
+        m_TargetAssemblyTypeName: PlayerInput, GameScripts
+        m_MethodName: OnLaneButtonPressed
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1883,12 +1883,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2010463027}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b666d2e7ecab92408fce247e2a7712c, type: 3}
+  m_Script: {fileID: 11500000, guid: f36ccad194562e14988f99ce4c932601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laneOffsetX: 1.05
-  laneOffsetY: 2.1
-  safeLane: 5
+  safeLane: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
